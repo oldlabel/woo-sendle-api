@@ -1,0 +1,222 @@
+/**
+ * Woo Sendle API - CSS
+ * 
+ * This CSS supports the Sendle API
+ *  
+ * @version	   1.01
+ * @category   woo-sendle-api
+ * @author     JRS <developer@oldlabel.com>
+ * @license    http://www.gnu.org/licenses/  GNU General Public License
+ * @link       https://www.oldlabel.com/woo-sendle-api
+ */
+
+/* from w3schools */
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 2s linear infinite;
+	position: fixed;
+	background-color: #fff;
+	z-index: 1010;
+	top: 50%;
+	display: none;
+left: 50%;
+margin-top: -40px; /* Negative half of height. */
+margin-left: -40px; /* Negative half of width. */
+}
+
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.sendle_form{
+    display: none;
+    background-color: #FFFFFF;
+    position: fixed;
+    top: 50%;
+    padding: 45px 25px 25px 25px;
+    width: 70%;
+    z-index: 50;
+    left: 50%;
+	transform: translate(-45%, -50%);
+    /*margin-left: -200px;*/
+	overflow-y: auto;
+	/*height: 70%;*/
+	
+
+}
+#sendle_feedback{
+
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: none;
+    }
+    
+.sendle_error{
+    background-color: peachpuff;
+    }
+ .sendle_success{
+ background-color: #d9ffcc;
+ }
+ 
+ .sendle_cancel, .sendle_label{
+ display: none;
+ }
+
+.sendle_form .btnClose {
+  background: #d871ed;
+  /*background-image: -webkit-linear-gradient(top, #d871ed, #9823a3);
+  background-image: -moz-linear-gradient(top, #d871ed, #9823a3);
+  background-image: -ms-linear-gradient(top, #d871ed, #9823a3);
+  background-image: -o-linear-gradient(top, #d871ed, #9823a3);
+  background-image: linear-gradient(to bottom, #d871ed, #9823a3);*/
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;
+  /*width: 100px;*/
+  color: #ffffff;
+  font-size: 14px;
+  top: 0px;
+  right: 0px;
+  padding: 5px 10px 5px 10px;
+  text-decoration: none;
+  position: absolute;
+  z-index:1000;
+}
+
+.sendle_form .btnClose:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+	.booking_form{
+		display: none;
+	}
+    .modal-background {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: grey;
+        opacity: .50;
+        -webkit-opacity: .5;
+        -moz-opacity: .5;
+        filter: alpha(opacity=50);
+        z-index: 1000;
+    }
+    
+    .modal-content {
+        background-color: white;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+       /* box-shadow: 0 0 20px 0 #222;
+        -webkit-box-shadow: 0 0 20px 0 #222;
+        -moz-box-shadow: 0 0 20px 0 #222;*/
+        display: none;
+        max-height: calc(100% - 100px);
+        top: 50%;
+        left: 50%;
+        transform: translate(-40%, -50%);
+        /*margin: -120px 0 0 -160px;*/
+        padding: 10px;
+        position: fixed;
+        width: 70%;
+        max-width: 800px;
+        z-index: 1000;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
+
+ .modal-background.active, .modal-content.active, .booking_form.active, 
+  #sendle_feedback.active, .sendle_cancel.active, .sendle_label.active {
+        display: block;
+    }
+  .modal-close {
+	background-color: #fff; /* Green */
+	border: none;
+	color: black;
+	padding: 8px 12px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius: 4px;
+	border-width: 2px;
+	border-color: #000;
+}
+.modal-close:hover{
+	background-color: #EBEBEB;
+}
+
+.right{
+	float: right;
+	position: relative;
+	margin-top: -5px;
+}
+
+.modal-footer{
+position:absolute;
+padding: 10px;
+bottom: 20px;
+
+background-color: #c3c3c3;
+}
+
+.sendle-column {
+    float: left;
+    width: 50%;
+}
+/* Clear floats after the columns */
+.sendle-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.modal-body input[type=submit]{
+	
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+  
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 10px;
+   
+   }
+.modal-body input[type=submit]:hover{
+	
+	cursor: pointer; 
+
+} 
+.sendle_button{
+background-color: #4CAF50; /* Green */
+ border: 1px solid green;
+}
+.sendle_button:hover{
+background-color: #218925;
+}
+
+.sendle_button_cancel{
+	background-color: #D5143A;
+	border: 1px solid red;
+	}
+.sendle_button_cancel:hover{
+	background-color: #9F1832;
+}
+input[type="submit"][disabled]{
+display: none;
+}
+
