@@ -1,6 +1,8 @@
 # Woo Sendle API
 A plugin for WooCommerce that enables shop owners to book packages on Sendle and retrieve packing labels without leaving WooCommerce.
 
+This plugin was developed as a tool for self education - there will be bugs and issues! If you find any feel free to make contact. Over time I hope to close them out.
+
 ## Getting Started
 
 ### Prerequisites
