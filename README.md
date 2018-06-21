@@ -3,7 +3,7 @@ A plugin for WooCommerce that enables shop owners to book packages on Sendle and
 
 ## Getting Started
 
-=== Prerequisites
+### Prerequisites
 To use Woo Sendle API you need to have:
 * WordPress with WooCommerce plugin activated
 * A Sendle account with an API username and password
@@ -16,7 +16,7 @@ The plugin has been tested with WooCommerce versions 3.2.6 to 3.4.2. This plugin
 #### Sendle
 Follow the steps in this [Sendle API support article](https://support.sendle.com/hc/en-us/articles/210798518-Sendle-API) to gain access to your Sendle API key.
 
-=== Installing
+### Installing
 Copy the files into your WordPress plugins folder and activate via the WordPress _plugins_ page.
 
 #### Configuration
@@ -26,7 +26,7 @@ The plugin is configured in an extra tab called _Sendle API_ in the standard Woo
 * API username and key
 * Default pickup information
 
-=== Usage
+### Usage
 The plugin is used by an extra button in the _Actions_ section of the WooCommerce orders page. The booking button is only available for orders in a status of __**processing**__. If order has been booked then the button will always be available.
 
 FAQ to be completed.
