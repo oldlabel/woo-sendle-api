@@ -36,7 +36,7 @@ class SendleAPI_Settings {
 		$this->get_sections();
 		
 		// if API is not enabled display a admin notice warning.
-		if(get_option('sendle_api_conf_enable') == 'no'){
+		if(get_option('sendle_api_conf_enable') != 'yes'){
 			add_action( 'admin_notices', array(&$this,'sendle_admin_notice_not_enabled') );
 		}
 	}

@@ -1,7 +1,7 @@
 /***
  * jQuery to support Sendle API
  * 
- * @version	   1.01
+ * @version	   1.02
  * @author     JRS <developer@oldlabel.com>
  * @license    http://www.gnu.org/licenses/  GNU General Public License
  * @link       https://www.oldlabel.com/woo-sendle-api
@@ -13,7 +13,8 @@ jQuery(document).ready(function($) {
 	$(".modal-background, .modal-close").click(function (e) {
 		e.preventDefault();
 		$('#modal-booking,.modal-background, #booking_form, #sendle_feedback, .sendle_	label').removeClass("active");
-		
+		$('.loader').css('display', 'none');
+		$('#modal-booking').zIndex(1000);
 	});
 	
 	
@@ -21,6 +22,7 @@ jQuery(document).ready(function($) {
 	$(".sendle_api_").click(function (e) {
 		e.preventDefault();
 		$(".modal-background").toggleClass("active");
+		
 		
 		// get and parse url parameters
 		paramURL = $(this).attr('href');
@@ -48,6 +50,7 @@ jQuery(document).ready(function($) {
 					if(input.attr("type")!= 'submit' &&  data[input.attr("name")] && input.attr("name") != 'pickup_weight')	
 						input.val(data[input.attr("name")]);
 					});
+				
 			}).fail(function( data ) {
 				console.log('Failed AJAX Call :( /// Return Data: ' + data);
 			});	
@@ -56,6 +59,10 @@ jQuery(document).ready(function($) {
 			// clean previous HTML and toggle class
 			$("#sendle_feedback").empty();
 			$("#modal-booking").toggleClass("active");
+			
+			$('#spinner').addClass('loader');
+			 $('#modal-booking').zIndex(997);
+			 $('.loader').css('display', 'block');
 			
 			// run ajax
 			$.ajax({
@@ -71,11 +78,10 @@ jQuery(document).ready(function($) {
 				
 				
 				if(data['success']){
-					if('is_cancellable' in data){
+					if(data['output']['scheduling']['is_cancellable'] == true){
 						$(".sendle_cancel").addClass("active");
 						$("form#sendle_cancel_booking :input[name=general_id]").val(params['order_id']);
 					}
-				
 					$(".sendle_label").addClass("active");
 					$("form#sendle_label :input[name=general_id]").val(params['order_id']);
 
@@ -85,9 +91,13 @@ jQuery(document).ready(function($) {
 					// unnecessarily complex but this updates the icon and URL of the booking to the next stage without needing a page refresh
 					$(".sendle_order_id_"+params['order_id']).addClass('sendle_icon_'+data['output']['state']).html('Sendle Order - '+data['output']['state']).attr("data-tip", 'Sendle Order - '+data['output']['state']);
 				}
+				$('.loader').css('display', 'none');
+				$('#modal-booking').zIndex(1000);
 			})
 			.fail(function( data ) {
 				console.log('Failed AJAX Call :( /// Return Data: ' + data);
+				$('.loader').css('display', 'none');
+				$('#modal-booking').zIndex(1000);
 			});	
 		}
 	});
@@ -108,10 +118,30 @@ jQuery(document).ready(function($) {
 		});
 	});
 	
+	// disable cancel button for three seconds to prevent accidental cancellation
+	$(".sendle_button_cancel").on({
+		mouseenter: function (e) {
+			//e.preventDefault();
+			$(this).prop("disabled", true);
+			$(this).css("display","block");
+			$(this).css("background-color","grey");
+			setTimeout(function(){	
+				$(".sendle_button_cancel").prop("disabled", false);
+				$(".sendle_button_cancel").css("background-color","");
+			},2500); 
+			
+		},
+		mouseleave: function (e) {
+			$(this).prop("disabled", false);
+			$(this).css("background-color","");
+		}
+	});
+	
 	// create or cancel the booking
 	$("#sendle_booking, #sendle_cancel_booking").submit(function (e){
-		 //$('#spinner').addClass('loader');
+		
 		 e.preventDefault();
+		 $('#spinner').addClass('loader');
 		 $('#modal-booking').zIndex(997);
 		 $('.loader').css('display', 'block');
 		 
@@ -127,18 +157,18 @@ jQuery(document).ready(function($) {
 			.done(function( data ) {
 					
 				data = JSON.parse( data );
+				console.log(data);
 			
-			
-				$('.loader').css('display', 'none');
+				
 				
 				if(data['success'] == true){
 					// if we're ordering
 					if(op == "order"){
 						$('form#sendle_booking :input').attr("disabled", true);
-						if('is_cancellable' in data){
-							$(".sendle_cancel, .sendle_label").toggleClass("active");
+						//if(data['output']['scheduling']['is_cancellable'] == true){
+							$(".sendle_cancel, .sendle_label").addClass("active");
 							$("form#sendle_cancel_booking :input[name=general_id]").val(params['order_id']);
-						}
+						//}
 					}else{ 
 						$('form#sendle_booking :input, form#sendle_cancel_booking :input,form#sendle_label :input').attr("disabled", true);
 						$('.sendle_cancel, .sendle_label').removeClass('active');
@@ -165,20 +195,21 @@ jQuery(document).ready(function($) {
 				}else{
 
 					// output error
-					$("#sendle_feedback").addClass("active sendle_error");
+					$("#sendle_feedback").addClass("active sendle_error").removeClass("sendle_success");
 					$("#sendle_feedback").html(data['header']+data['msg']);
 					
 				}
+				$('.loader').css('display', 'none');
+				$('#modal-booking').zIndex(1000);
 
 			})
 			.fail(function( data ) {
 				
 				console.log('Failed AJAX Call :( /// Return Data: ' + JSON.stringify(data));
+				$('.loader').css('display', 'none');
+				$('#modal-booking').zIndex(1000);
 			
 			});
-			$('.loader').css('display', 'none');
-			$('#modal-booking').zIndex(1000);
-		 
-		e.preventDefault(); 
+
 	 });
   });

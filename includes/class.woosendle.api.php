@@ -8,7 +8,7 @@
  *
  * @category   woo-sendle-api
  * @package    sendle-api
- * @version	   1.01
+ * @version	   1.02
  * @author     JRS <developer@oldlabel.com>
  * @license    http://www.gnu.org/licenses/  GNU General Public License
  * @link       https://www.oldlabel.com/woo-sendle-api
@@ -287,7 +287,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			 
 			function sendle_api_order_list_actions_button($actions, $order){
 					$order_id = method_exists( $order, 'get_id' ) ? $order->get_id() : $order->id;
-					
 					$sendle_state = $this->get_sendle_meta($order_id,'_sendle_order_state');
 					if($sendle_state != 'Cancelled' && $sendle_state){
 						$actions['sendle_api'] = array(
@@ -332,7 +331,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				Unable to Book	An order which cannot be booked.
 				Lost	An order marked as missing or lost.
 				Return to Sender	An order which is being returned to the sender. */
-				$icons = array(
+				/*$icons = array(
 					"Book"				=> "\\e006",
 					"Booking" 			=> "\\e012",
 					"Pickup" 			=> "\\e009",
@@ -343,10 +342,23 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					"Unable to Book"	=> "\\e016",
 					"Lost"				=> "\\e018",
 					"Return to Sender" 	=> "\\e00b"
+					);*/
+				$icons = array(
+					"Book"				=> "package.svg",
+					"Booking" 			=> "circle.svg",
+					"Pickup" 			=> "arrow-right-circle.svg",
+					"Pickup Attempted"	=> "info.svg",
+					"Transit"			=> "truck.svg",
+					"Delivered"			=> "check-circle.svg",
+					"Cancelled"			=> "slash.svg",
+					"Unable to Book"	=> "alert-triangle.svg",
+					"Lost"				=> "alert-triangle.svg",
+					"Return to Sender" 	=> "rotate-ccw.svg"
 					);
 				echo "<style>";
 				foreach ($icons as $key => $value){
-					echo ".view.sendle_api_.sendle_icon_".str_replace(" ", "_", $key)."::after { font-family: woocommerce; content: \"$value\" !important; }";
+					//echo ".view.sendle_api_.sendle_icon_".str_replace(" ", "_", $key)."::after { font-family: woocommerce; content: \"$value\" !important; }";
+					echo ".view.sendle_api_.sendle_icon_".str_replace(" ", "_", $key)."::after { content:'' !important; background-image:url(".plugins_url("/images/$value", __FILE__)."); }";
 					
 				}
 				echo "</style>";
@@ -371,11 +383,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				return json_decode($output, true);
 			}
 			
-			/*
+			
 			public function get_conf(){
 				return $this->conf;
 			}
-			*/
+			
 			/*
 			function api_label_script_handler(){
 				//$api = new SendleAPI();
@@ -681,8 +693,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					  "instructions" => $details['receiver_instructions']
 					)
 				  );
-				  
+				
+				
 				$data_json = json_encode($data);
+				
+				
 				$ch = curl_init($url);
 				curl_setopt($ch, CURLOPT_POST, 1);
 				curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
@@ -730,13 +745,13 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 						$result['success'] = true;
 						$result['output'] = $curl_result;
 						$result['header'] = "<h3>Status - ".$result['output']['state']."</h3><p>Please review details below.</p>";
-						$result['msg'] = "<p><h4>Details:</h4></p>".$this->format_message($result['output'], false);
+						$result['msg'] = "<p><h4>Details:</h4></p>".$curl_input;//.$this->format_message($result['output'], false);
 						break;
 					case 201:
 						$result['success'] = true;
 						$result['output'] = $curl_result;
 						$result['header'] = "<h3>Success</h3><p>Please review returned details below.</p>";
-						$result['msg'] = "<p><h4>Details:</h4></p>".$this->format_message($result['output'], false);
+						$result['msg'] = "<p><h4>Details:</h4></p>".$curl_input;//.$this->format_message($result['output'], false);
 						break;
 					case 401:
 						$result['success'] = false;
@@ -775,7 +790,27 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				}
 				
 				return $result;
-			}			
+			}
+			
+			public function format_message($input, $iterate=true){
+				$html = "";
+				$depth = "&nbsp;";
+				foreach ($input as $key => $item){
+					
+					$html .= "<b>$key</b>".(is_array($item) ? "" : ": $item")."<br>";
+					while((is_array($item) || is_object($item)) && $iterate){
+						foreach($item as $key => $value){
+							if(is_array($value) || is_object($value))
+								$html.= $depth."<b>$key</b><br>";
+							else
+								$html .= $depth."<b>$key</b>: $value<br>";
+						}
+						$item = $value;	
+						$depth .= "&nbsp;";
+					}
+				}
+				return $html;
+			}					
 		}
 	}
 	

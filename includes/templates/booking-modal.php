@@ -5,29 +5,31 @@
     
     <div class="modal-header"><h2 id="modal-title">Sendle Booking Form<button id="modal-close" class="modal-close right">&times;</button></h2></div>
     <div class="modal-body">
-		<div class="buttons"><p>
 		<div class="sendle_title"></div>
-		<div class="sendle_label">
-			<form name="sendle_label" id="sendle_label" target="_blank" action="<?php echo admin_url( 'admin-ajax.php' ) ; ?>" method="post">
-			<input type="submit" name="submit_label" class="sendle_button" value="Get Label">
-			<?php echo wp_nonce_field('sendle-api-nonce'); ?>
-			<input type="hidden" name="action" value="sendle_api_ajax">
-			<input type="hidden" name="general_id" value="">
-			<input type="hidden" name="op" value="label">
-			</form>
+		<div class="buttons">
+			<div class="left-button">
+				<div id="sendle_label" class="sendle_label">
+					<form name="sendle_label" id="sendle_label" target="_blank" action="<?php echo admin_url( 'admin-ajax.php' ) ; ?>" method="post">
+					<input type="submit" name="submit_label" class="sendle_button" value="Get Label">
+					<?php echo wp_nonce_field('sendle-api-nonce'); ?>
+					<input type="hidden" name="action" value="sendle_api_ajax">
+					<input type="hidden" name="general_id" value="">
+					<input type="hidden" name="op" value="label">
+					</form>
+				</div>
+			</div>
+			<div class="right-button">
+				<div id="sendle_cancel" class="sendle_cancel">
+					<form name="sendle_cancel_booking" id="sendle_cancel_booking" action="" method="post">
+					<input type="submit" name="submit_cancel" class="sendle_button_cancel" value="Cancel Order" title="Hover for 3 seconds to enable button.">
+					<?php echo wp_nonce_field('sendle-api-nonce'); ?>
+					<input type="hidden" name="action" value="sendle_api_ajax">
+					<input type="hidden" name="general_id" value="">
+					<input type="hidden" name="op" value="cancel">
+					</form>
+				</div>
+			</div>
 		</div>
-		<div class="sendle_cancel">
-			<form name="sendle_cancel_booking" id="sendle_cancel_booking" action="" method="post">
-			<input type="submit" name="submit_cancel" class="sendle_button_cancel" value="Cancel Order">
-			<?php echo wp_nonce_field('sendle-api-nonce'); ?>
-			<input type="hidden" name="action" value="sendle_api_ajax">
-			<input type="hidden" name="general_id" value="">
-			<input type="hidden" name="op" value="cancel">
-			</form>
-		</div>
-		</p>
-		</div>
-		<div class="clearfix"></div>
 		<div id="sendle_feedback"></div>
 		
 	
