@@ -59,31 +59,31 @@
 				<div class="sendle-column">
 				<table id="receiver">
 					<tr><td colspan=2><b>Receiver details</b></td></tr>
-					<tr><td>first_name:</td><td><input type='text' value='' name='receiver_first_name' id='receiver_first_name'></td></tr>
-					<tr><td>last_name:</td><td><input type='text' value='' name='receiver_last_name' id='receiver_last_name'></td></tr>
-					<tr><td>company:</td><td><input type='text' value='' name='receiver_company' id='receiver_company'></td></tr>
-					<tr><td>address_1:</td><td><input type='text' value='' name='receiver_address_1' id='receiver_address_1'></td></tr>
-					<tr><td>address_2:</td><td><input type='text' value='' name='receiver_address_2' id='receiver_address_2'></td></tr>
-					<tr><td>city:</td><td><input type='text' value='' name='receiver_city' id='receiver_city'></td></tr>
-					<tr><td>state:</td><td><input type='text' value='' name='receiver_state' id='receiver_state'></td></tr>
-					<tr><td>postcode:</td><td><input type='text' value='' name='receiver_postcode' id='receiver_postcode'></td></tr>
-					<tr><td>country:</td><td><input type='text' value='' name='receiver_country' id='receiver_country'></td></tr>
-					<tr><td>Instructions</td><td><input type='text' name='receiver_instructions' value=''></td></tr>
-					<tr><td>Email</td><td><input type='text' name='receiver_email' value=''></td></tr>
+					<tr><td>First Name:</td><td><input type='text' value='' name='receiver_first_name' id='receiver_first_name'></td></tr>
+					<tr><td>Last Name:</td><td><input type='text' value='' name='receiver_last_name' id='receiver_last_name'></td></tr>
+					<tr><td>Company:</td><td><input type='text' value='' name='receiver_company' id='receiver_company'></td></tr>
+					<tr><td>Address 1:</td><td><input type='text' value='' name='receiver_address_1' id='receiver_address_1'></td></tr>
+					<tr><td>Address 2:</td><td><input type='text' value='' name='receiver_address_2' id='receiver_address_2'></td></tr>
+					<tr><td>City:</td><td><input type='text' value='' name='receiver_city' id='receiver_city'></td></tr>
+					<tr><td>State:</td><td><input type='text' value='' name='receiver_state' id='receiver_state'></td></tr>
+					<tr><td>Postcode:</td><td><input type='text' value='' name='receiver_postcode' id='receiver_postcode'></td></tr>
+					<tr><td>Country:</td><td><input type='text' value='' name='receiver_country' id='receiver_country'></td></tr>
+					<tr><td>Instructions:</td><td><input type='text' name='receiver_instructions' value=''></td></tr>
+					<tr><td>Email:</td><td><input type='text' name='receiver_email' value=''></td></tr>
 				</table>
 				</div>
 				<div class="sendle-column">
 				<table id="pickup">
 					<tr><td colspan=2><b>Sender details</b></td></tr>
-					<tr><td>name:</td><td><input type='text' value='' name='pickup_name' id='pickup_name'></td></tr>
-					<tr><td>phone:</td><td><input type='text' value='' name='pickup_phone' id='pickup_phone'></td></tr>
-					<tr><td>address_1:</td><td><input type='text' value='' name='pickup_address_1' id='pickup_address_1'></td></tr>
-					<tr><td>address_2:</td><td><input type='text' value='' name='pickup_address_2' id='pickup_address_2'></td></tr>
-					<tr><td>city:</td><td><input type='text' value='' name='pickup_city' id='pickup_city'></td></tr>
-					<tr><td>postcode:</td><td><input type='text' value='' name='pickup_postcode' id='pickup_postcode'></td></tr>
-					<tr><td>state:</td><td><input type='text' value='' name='pickup_state' id='pickup_state'></td></tr>
-					<tr><td>country:</td><td><input type='text' value='' name='pickup_country' id='pickup_country'></td></tr>
-					<tr><td>instructions:</td><td><input type='text' value='' name='pickup_instructions' id='pickup_instructions'></td></tr>
+					<tr><td>Name:</td><td><input type='text' value='' name='pickup_name' id='pickup_name'></td></tr>
+					<tr><td>Phone:</td><td><input type='text' value='' name='pickup_phone' id='pickup_phone'></td></tr>
+					<tr><td>Address 1:</td><td><input type='text' value='' name='pickup_address_1' id='pickup_address_1'></td></tr>
+					<tr><td>Address 2:</td><td><input type='text' value='' name='pickup_address_2' id='pickup_address_2'></td></tr>
+					<tr><td>City:</td><td><input type='text' value='' name='pickup_city' id='pickup_city'></td></tr>
+					<tr><td>Postcode:</td><td><input type='text' value='' name='pickup_postcode' id='pickup_postcode'></td></tr>
+					<tr><td>State:</td><td><input type='text' value='' name='pickup_state' id='pickup_state'></td></tr>
+					<tr><td>Country:</td><td><input type='text' value='' name='pickup_country' id='pickup_country'></td></tr>
+					<tr><td>Instructions:</td><td><input type='text' value='' name='pickup_instructions' id='pickup_instructions'></td></tr>
 				</table>
 				</div>
 			</form>

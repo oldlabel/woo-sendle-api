@@ -8,10 +8,13 @@
  *
  * @category   woo-sendle-api
  * @package    sendle-settings
- * @version	   1.01
+ * @version	   1.02
  * @author     JRS <developer@oldlabel.com>
  * @license    http://www.gnu.org/licenses/  GNU General Public License
  * @link       https://www.oldlabel.com/woo-sendle-api
+ * 
+ * v1.02
+ * added prefix
  */
 
 class SendleAPI_Settings {
@@ -145,6 +148,13 @@ class SendleAPI_Settings {
 						'desc_tip' => true,
 						'desc' => __( 'Sandbox API Key', 'woocommerce-sendle-api-settings' ),
 						'id'   => $this->id.'_conf_sandbox_key'
+					),
+					'prefix' => array(
+						'name' => __( 'Sendle Meta Order Prefix', 'woocommerce-sendle-api-settings' ),
+						'type' => 'text',
+						'desc_tip' => true,
+						'desc' => __( 'The content of this field will be prefixed to the order number in Sendle\'s meta fields. ', 'woocommerce-sendle-api-settings' ),
+						'id'   => $this->id.'_conf_prefix'
 					),
 					array(
 						'type' 	=> 'sectionend',

@@ -8,10 +8,13 @@
  *
  * @category   woo-sendle-api
  * @package    sendle-api
- * @version	   1.02
+ * @version	   1.03
  * @author     JRS <developer@oldlabel.com>
  * @license    http://www.gnu.org/licenses/  GNU General Public License
  * @link       https://www.oldlabel.com/woo-sendle-api
+ * 
+ * v1.03
+ * fixed Dashboard offset error
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -29,9 +32,6 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 			 * Loads the configuration and setting information
 			 * Loads the scripts and AJAX
 			 * 
-			 * @throws Some_Exception_Class If something interesting cannot happen
-			 * @author Monkey Coder <mcoder@facebook.com>
-			 * @return Status
 			 */ 
 			public function __construct(){
 				
@@ -41,6 +41,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				$this->conf['mode'] = get_option($this->prefix.'conf_mode');
 				$this->conf['user'] = get_option($this->prefix.'conf_'.$this->conf['mode'].'_user');
 				$this->conf['apikey'] =  get_option($this->prefix.'conf_'.$this->conf['mode'].'_key');
+				$this->conf['prefix'] =  get_option($this->prefix.'conf_prefix');
 				$this->conf['pickup']['name'] = get_option($this->prefix.'default_name');
 				$this->conf['pickup']['phone'] = get_option($this->prefix.'default_phone');
 				$this->conf['pickup']['instructions'] = get_option($this->prefix.'default_instructions');
@@ -52,6 +53,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				$this->conf['pickup']['country'] = get_option($this->prefix.'default_country');
 				$this->conf['pickup']['volume'] = get_option($this->prefix.'default_volume');
 				$this->conf['pickup']['weight'] = get_option($this->prefix.'default_weight');
+				
+				//$this->response = '{"order_id":"1f157cff-69ce-45af-9f5b-27e4e17fcbff","state":"Booking","order_url":"https://sendle-sandbox.herokuapp.com/api/orders/1f157cff-69ce-45af-9f5b-27e4e17fcbff","sendle_reference":"SS5H5Q","tracking_url":"https://sendle-sandbox.herokuapp.com/tracking?ref=SS5H5Q","metadata":{"your_data":"LL-7"},"labels":null,"scheduling":{"is_cancellable":true,"pickup_date":"2018-07-06","picked_up_on":null,"delivered_on":null,"estimated_delivery_date_minimum":null,"estimated_delivery_date_maximum":null},"description":"LL-7","kilogram_weight":"0.5","cubic_metre_volume":null,"customer_reference":"LL-7","sender":{"contact":{"name":"oldlabel web design","phone":"0412345678","email":"jeremy@oldlabel.com","sendle_id":"jeremy_oldlabel_com"},"address":{"address_line1":"1 Brisbane St","address_line2":null,"suburb":"Brisbane","state_name":"QLD","postcode":"4000","country":"Australia"},"instructions":"pickup at door"},"receiver":{"contact":{"name":"Thomas Tank Engine","phone":null,"email":"spam@oldlabel.com"},"address":{"address_line1":"1 Perth St","address_line2":null,"suburb":"Perth","state_name":"WA","postcode":"6000","country":"Australia"},"instructions":"Authority to Leave (ATL)"},"route":{"type":"national","description":"Brisbane to Perth"}}';
+				$this->response = '{"messages":{"sender":[{"address":[{"suburb":["can\t be blank"],"state_code":["can\t be blank"],"state_name":["can\t be blank"]},"is not yet serviced by Sendle"]}],"receiver":[{"address":[{"state_name":["We found your postcode and suburb, but they aren\t in the state you gave: NSW instead they are in: WA, perhaps you could change the state to match?"]}]}]},"error":"unprocessable_entity","error_description":"The data you supplied is invalid. Error messages are in the messages section. Please fix those fields and try again."}';
 				
 				add_action( 'admin_footer', array( &$this,'sendle_api_script') );
 				add_action( 'admin_notices', array( &$this,'sendle_add_html') );
@@ -166,9 +170,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 					WHERE $wpdb->postmeta.meta_key = '_sendle_order_state' 
 				 ";
 
-				 $pageposts = $wpdb->get_results($querystr, OBJECT);
-				$result = "";
-				foreach ($pageposts as $key => $value){
+				$pageposts = $wpdb->get_results($querystr, OBJECT);
+				$result = array();
+				foreach ($pageposts as $key => $value){	
 					if(isset($result[$value->meta_value])){
 						$result[$value->meta_value]++;
 					}else{
@@ -178,14 +182,13 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 				}
 				echo "<ul class='wc_status_list'>";
 				foreach($result as $key => $value){
-					echo "<li class='processing_orders'><a href='#'>$key $value</a></li>";
+					echo "<li class='processing_orders'>$key $value</li>";
 					
 				}
-				echo "</ul>";
-				
+				echo "</ul>";			
 			
 			}
-			
+
 			/**
 			 * sendle_api_script
 			 *
@@ -237,8 +240,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 								$result['receiver'] = $order_data['shipping'];
 								$result['receiver']['email'] = $order_data['billing']['email'];
 								$result['general']['pickup_date'] = date("Y-m-d", strtotime('today +1 Weekday'));
-								$result['general']['description'] = 'LL-'.$order_id;
-								$result['general']['customer_reference'] = 'LL-'.$order_id;
+								$result['general']['description'] = $this->conf['prefix'].$order_id;
+								$result['general']['customer_reference'] = $this->conf['prefix'].$order_id;
 								$result['receiver']['instructions'] = 'authority to leave';
 								$result['general']['id'] = $order_id;
 								$conf = $api->get_conf();
