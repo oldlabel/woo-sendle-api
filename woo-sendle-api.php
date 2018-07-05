@@ -5,7 +5,7 @@
  * Description: Woocommerce Sendle API Plugin by oldlabel web design
  * 
  * Version: 1.0.1
- * Author: JRS
+ * Author: oldlabel
  * Author URI: https://www.oldlabel.com
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -23,7 +23,7 @@
  * 
  * @category   woo-sendle-api
  * @package    woo-sendle-api
- * @author     JRS <developer@oldlabel.com>
+ * @author     oldlabel <developer@oldlabel.com>
  * @license    http://www.gnu.org/licenses/  GNU General Public License
  * @link       https://www.oldlabel.com/woo-sendle-api
  */
